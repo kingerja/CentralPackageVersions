@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project InitialTargets="ApplyPackageVersions" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <ItemGroup>
+
+    <!-- Stores the original package references used later to determine if there are any problems -->
+    <OriginalPackageReference Include="@(PackageReference)" />
+
+    <!-- Store all PackageVersion items that do not have a PackageReference -->
+    <_PackagesNotReferenced Include="@(PackageVersion)" Exclude="@(PackageReference)" />
+
+    <!-- Clear the PackageReference list -->
+    <PackageReference Remove="@(OriginalPackageReference)" />
+
+    <!-- Add back the PackageReference its from the list that contains versions, excluding the items not referenced -->
+    <PackageReference Include="@(PackageVersion)" Exclude="@(_PackagesNotReferenced)" />
+
+    <!-- Clear the temporary list of items not referenced -->
+    <_PackagesNotReferenced Remove="@(_PackagesNotReferenced)" />
+
+  </ItemGroup>
+
+  <Target Name="ApplyPackageVersions"
+    Condition=" '@(PackageReference)' != '' ">
+
+    <!-- Determine all of the original PackageReference items that did not have a PackageVersion -->
+    <ItemGroup>
+      <MissingPackageReference Include="@(OriginalPackageReference)" Exclude="@(PackageVersion)" />
+    </ItemGroup>
+    
+    <!--
+      Generate an error if any PackageReference has a version specified and its not an implicit item
+     -->
+    <Error
+      Text="The package reference '%(OriginalPackageReference.Identity)' should not specify a version.  Please specify the version in '$(PackageVersionsFile)'."
+      Condition=" '%(OriginalPackageReference.IsImplicitlyDefined)' != 'true' And '%(OriginalPackageReference.Version)' != '' "
+      File="$(MSBuildProjectFullPath) "/>
+
+    <!--
+      Generate an error if any explicit PackageReference did not have matching PackageVersion
+     -->
+    <Error
+      Text="The package reference '%(MissingPackageReference.Identity)' must have a version defined in '$(PackageVersionsFile)'."
+      Condition=" '@(MissingPackageReference)' != '' And '%(MissingPackageReference.IsImplicitlyDefined)' != 'true' "
+      File="$(MSBuildProjectFullPath)" />
+
+    <!--
+      Generate an error if any implicit PackageReference did not have matching PackageVersion
+     -->
+    <Error
+      Text="The implicit package reference '%(MissingPackageReference.Identity)' must have a version defined in '$(PackageVersionsFile)'."
+      Condition=" '@(MissingPackageReference)' != '' And '%(MissingPackageReference.IsImplicitlyDefined)' == 'true' "
+      File="$(MSBuildProjectFullPath)" />
+  </Target>
+
+</Project>
