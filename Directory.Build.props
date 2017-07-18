@@ -5,6 +5,4 @@
     <PackageVersionsFile Condition=" '$(PackageVersionsFile)' == '' ">$(MSBuildThisFileDirectory)PackageVersions.props</PackageVersionsFile>
   </PropertyGroup>
   
-  <Import Project="$(PackageVersionsFile)" />
-  
 </Project>

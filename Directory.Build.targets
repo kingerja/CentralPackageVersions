@@ -2,6 +2,19 @@
 <Project InitialTargets="ApplyPackageVersions" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <ItemGroup>
+    <!-- Stores the package versions specified in individual projects -->
+    <ProjectSpecifiedPackageVersion Include="@(PackageVersion)" />
+  </ItemGroup>
+
+  <Import Project="$(PackageVersionsFile)" />
+
+  <ItemGroup>
+
+    <!-- Clear package versions that are duplicated from a project and the central package versions file -->
+    <PackageVersion Remove="@(ProjectSpecifiedPackageVersion)" />
+    
+    <!-- Add back the project specified package versions -->
+    <PackageVersion Include="@(ProjectSpecifiedPackageVersion)" />
 
     <!-- Stores the original package references used later to determine if there are any problems -->
     <OriginalPackageReference Include="@(PackageReference)" />
