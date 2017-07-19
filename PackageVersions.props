@@ -6,12 +6,12 @@
   
   <!-- An alphabetical list of all package references and version. -->
   <ItemGroup>
-    <PackageVersion Include="Microsoft.Build.Framework" Version="14.3.0" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
-    <PackageVersion Include="MSTest.TestAdapter" Version="1.1.18" />
-    <PackageVersion Include="MSTest.TestFramework" Version="1.1.18" />
-    <PackageVersion Include="NETStandard.Library" Version="1.6.1" />
-    <PackageVersion Include="Microsoft.NETCore.App" Version="1.1.2" />
-    <PackageVersion Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.Build.Framework" Version="[14.3.0]" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="[15.0.0]" />
+    <PackageVersion Include="MSTest.TestAdapter" Version="[1.1.18]" />
+    <PackageVersion Include="MSTest.TestFramework" Version="[1.1.18]" />
+    <PackageVersion Include="NETStandard.Library" Version="[1.6.1]" />
+    <PackageVersion Include="Microsoft.NETCore.App" Version="[1.1.2]" />
+    <PackageVersion Include="Newtonsoft.Json" Version="[9.0.1]" />
   </ItemGroup>
 </Project>
