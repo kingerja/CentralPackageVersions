@@ -23,7 +23,7 @@ Build FAILED.
 ```
 ## Central package definition
 In this example, a central MSBuild property file named [PackageVersion.props](PackageVersions.props) defines package versions.  The list includes explicity references as well as the [new implicit references](https://aka.ms/sdkimplicitrefs).
-See nuget [versionin-ranges](https://docs.microsoft.com/en-us/nuget/create-packages/dependency-versions#version-ranges) for supported versioning formats. 
+See nuget [version-ranges](https://docs.microsoft.com/en-us/nuget/create-packages/dependency-versions#version-ranges) for supported versioning formats. 
 ```xml
 <ItemGroup>
   <PackageVersion Include="Microsoft.Build.Framework" Version="[14.3.0]" />
